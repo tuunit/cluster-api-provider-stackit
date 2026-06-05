@@ -1,0 +1,14 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: StackitMachineTemplate
+metadata:
+  labels:
+    app.kubernetes.io/name: cluster-api-provider-stackit
+    app.kubernetes.io/managed-by: kustomize
+  name: stackitmachinetemplate-sample
+spec:
+  template:
+    spec:
+      imageID: 00000000-0000-0000-0000-000000000000
+      machineType: g1.1
+      availabilityZone: eu01-1
+      bootVolumeSizeGiB: 64

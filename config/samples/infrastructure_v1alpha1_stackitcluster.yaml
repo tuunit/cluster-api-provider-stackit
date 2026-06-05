@@ -1,0 +1,17 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: StackitCluster
+metadata:
+  labels:
+    app.kubernetes.io/name: cluster-api-provider-stackit
+    app.kubernetes.io/managed-by: kustomize
+  name: stackitcluster-sample
+spec:
+  projectID: 00000000-0000-0000-0000-000000000000
+  region: eu01
+  # Optional: reference an existing STACKIT network.
+  # If omitted, the provider creates and manages a dedicated network for this cluster.
+  # networkID: 00000000-0000-0000-0000-000000000000
+  # Set this once the control plane endpoint exists.
+  # controlPlaneEndpoint:
+  #   host: api.example.invalid
+  #   port: 6443

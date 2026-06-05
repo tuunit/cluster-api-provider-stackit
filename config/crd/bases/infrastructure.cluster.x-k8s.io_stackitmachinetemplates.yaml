@@ -1,0 +1,123 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: stackitmachinetemplates.infrastructure.cluster.x-k8s.io
+spec:
+  group: infrastructure.cluster.x-k8s.io
+  names:
+    categories:
+    - cluster-api
+    kind: StackitMachineTemplate
+    listKind: StackitMachineTemplateList
+    plural: stackitmachinetemplates
+    singular: stackitmachinetemplate
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: StackitMachineTemplate is the Schema for the stackitmachinetemplates
+          API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: spec defines the desired state of StackitMachineTemplate
+            properties:
+              template:
+                description: StackitMachineTemplateResource describes the data needed
+                  to create a StackitMachine from a template.
+                properties:
+                  metadata:
+                    description: metadata is the standard object's metadata.
+                    minProperties: 1
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          annotations is an unstructured key value map stored with a resource that may be
+                          set by external tools to store and retrieve arbitrary metadata. They are not
+                          queryable and should be preserved when modifying objects.
+                          More info: http://kubernetes.io/docs/user-guide/annotations
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          labels is a map of string keys and values that can be used to organize and categorize
+                          (scope and select) objects. May match selectors of replication controllers
+                          and services.
+                          More info: http://kubernetes.io/docs/user-guide/labels
+                        type: object
+                    type: object
+                  spec:
+                    description: spec defines the desired state of the StackitMachine
+                      created from this template.
+                    properties:
+                      availabilityZone:
+                        description: availabilityZone identifies the STACKIT availability
+                          zone for the machine.
+                        minLength: 1
+                        type: string
+                      bootVolumeSizeGiB:
+                        description: bootVolumeSizeGiB is the size of the machine
+                          boot volume in GiB.
+                        format: int64
+                        minimum: 1
+                        type: integer
+                      imageID:
+                        description: imageID identifies the STACKIT image used as
+                          the boot volume source for the machine.
+                        minLength: 1
+                        type: string
+                      instanceID:
+                        description: instanceID references the STACKIT instance backing
+                          this machine when one already exists.
+                        minLength: 1
+                        type: string
+                      machineType:
+                        description: machineType identifies the STACKIT instance flavor
+                          to use for the machine.
+                        minLength: 1
+                        type: string
+                      providerID:
+                        description: providerID must match the provider ID as seen
+                          on the corresponding Kubernetes Node object.
+                        minLength: 1
+                        type: string
+                    required:
+                    - availabilityZone
+                    - bootVolumeSizeGiB
+                    - imageID
+                    - machineType
+                    type: object
+                required:
+                - spec
+                type: object
+            required:
+            - template
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
